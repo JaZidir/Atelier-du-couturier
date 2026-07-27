@@ -4,61 +4,89 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Atelier du Couturier - Registre</title>
-  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
-  <div id="app-container">
-    <!-- État vide : aucun registre chargé -->
-    <div id="empty-state" class="hidden">
-      <div id="dropzone" class="dropzone">
-        <div class="dropzone-content">
-          <h1>📋 Atelier du Couturier</h1>
-          <p>Bienvenue ! Importez votre registre Excel pour commencer.</p>
-          <button class="btn-import btn-primary">Importer un registre</button>
-          <p class="dropzone-hint">ou glissez-déposez votre fichier ici</p>
+
+  <div class="app">
+
+    <!-- ================= HEADER ================= -->
+    <header class="app-header">
+      <div class="brand">
+        <svg class="brand-mark" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M9 23 C9 23 20 21 24 13 C25.5 10 24.5 7 22 6.5 C19.5 6 17.5 8 18 10.5"
+                stroke="currentColor" stroke-width="1.6" stroke-linecap="round" fill="none"/>
+          <circle cx="22.5" cy="8.5" r="2.6" stroke="currentColor" stroke-width="1.6" fill="none"/>
+          <path d="M6 26 C6.5 23.5 8 22 9 21.5" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/>
+        </svg>
+        <div class="brand-titles">
+          <span class="brand-title">Atelier du Couturier</span>
+          <span class="brand-subtitle">Registre de fabrication</span>
         </div>
       </div>
+
+      <nav class="tabs">
+        <button class="tab-button active" data-tab="catalogue">Catalogue</button>
+        <button class="tab-button" data-tab="rachat">Rachat des matériaux</button>
+      </nav>
+
+      <div class="header-spacer"></div>
+
+      <button class="btn-import">Importer un registre</button>
+    </header>
+
+    <!-- ================= ÉTAT VIDE (aucun registre chargé) ================= -->
+    <div id="empty-state">
+      <div class="dropzone" id="dropzone">
+        <svg class="dropzone-icon" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M12 4v11m0 0-4-4m4 4 4-4" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>
+          <path d="M4 16v2a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-2" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+        <h2>Aucun registre chargé</h2>
+        <p>
+          Déposez ici votre fichier Excel (feuilles <strong>VENTES</strong> et <strong>MATERIAUX</strong>),
+          ou placez-le dans <code>data/registre.xlsx</code> pour un chargement automatique
+          au prochain démarrage.
+        </p>
+        <button class="btn-primary btn-import">Parcourir mon ordinateur</button>
+      </div>
     </div>
-    <input type="file" id="file-input" accept=".xlsx" style="display: none;">
 
-    <!-- Application principale -->
-    <div id="app-content" class="hidden">
-      <header class="app-header">
-        <h1>📋 Atelier du Couturier</h1>
-      </header>
+    <!-- Entrée fichier cachée, réutilisée par les deux boutons "Importer" -->
+    <input type="file" id="file-input" accept=".xlsx" class="hidden">
 
-      <div class="app-layout">
-        <!-- Onglets principaux -->
-        <div class="tabs">
-          <button class="tab-button active" data-tab="catalogue">Catalogue</button>
-          <button class="tab-button" data-tab="rachat">Rachat des matériaux</button>
-        </div>
+    <!-- ================= CONTENU PRINCIPAL ================= -->
+    <main id="app-content" class="hidden">
 
-        <!-- Onglet Catalogue -->
-        <div id="panel-catalogue" class="tab-panel">
-          <div class="catalogue-layout">
-            <!-- Gauche : Catégories + Recherche + Liste -->
-            <div class="sidebar">
-              <div class="search-box">
-                <input type="text" id="search-input" placeholder="Rechercher un objet...">
-              </div>
-              <div class="categories-label">Catégories</div>
-              <div id="category-list" class="category-list"></div>
-              <div id="item-list" class="item-list"></div>
+      <!-- ---- Onglet Catalogue ---- -->
+      <section id="panel-catalogue" class="tab-panel">
+        <div class="catalogue-layout">
+
+          <aside class="catalogue-sidebar">
+            <div class="sidebar-search">
+              <input type="text" id="search-input" class="search-input" placeholder="Rechercher un objet…">
             </div>
+            <div id="category-list"></div>
+            <div id="item-list"></div>
+          </aside>
 
-            <!-- Droite : Détail -->
-            <div class="main-content">
-              <div id="detail-panel" class="detail-panel"></div>
-            </div>
-          </div>
+          <div id="detail-panel"></div>
+
         </div>
+      </section>
 
-        <!-- Onglet Rachat des matériaux -->
-        <div id="panel-rachat" class="tab-panel hidden">
-          <div class="rachat-container">
+      <!-- ---- Onglet Rachat des matériaux ---- -->
+      <section id="panel-rachat" class="tab-panel hidden">
+        <div class="rachat-layout">
+          <div class="rachat-header">
             <h2>Rachat des matériaux</h2>
-            <p class="rachat-help">Modifiez les prix de rachat des matériaux. Les coûts et rentabilités se recalculent automatiquement.</p>
+            <p>
+              Modifiez le prix de rachat d'un matériau : le coût de fabrication, le bénéfice
+              et la rentabilité de tous les objets du catalogue qui l'utilisent sont
+              recalculés instantanément.
+            </p>
+          </div>
+          <div class="rachat-table-wrap">
             <table class="rachat-table">
               <thead>
                 <tr>
@@ -66,21 +94,23 @@
                   <th>Prix de rachat</th>
                   <th>Quantité</th>
                   <th>Prix unitaire</th>
-                  <th>Action</th>
+                  <th></th>
                 </tr>
               </thead>
               <tbody id="rachat-tbody"></tbody>
             </table>
           </div>
         </div>
-      </div>
-    </div>
+      </section>
+
+    </main>
+
   </div>
 
-  <!-- Toast de notifications -->
+  <!-- Notification discrète -->
   <div id="toast" class="toast"></div>
 
-  <!-- Scripts -->
+  <!-- ================= SCRIPTS ================= -->
   <script src="lib/xlsx.full.min.js"></script>
   <script src="js/excel-reader.js"></script>
   <script src="js/images-map.js"></script>
