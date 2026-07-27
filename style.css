@@ -1,0 +1,217 @@
+# Atelier du Couturier
+
+Application web pour les couturiers d'un serveur RP Skyrim : consultation du
+catalogue d'objets fabricables (coût, prix de vente, bénéfice, rentabilité)
+et gestion du prix de rachat des matériaux, à partir d'un registre Excel.
+
+Aucune base de données : tout tourne dans le navigateur (HTML / CSS / JS),
+avec lecture directe du fichier `.xlsx` via [SheetJS](https://sheetjs.com/).
+
+## Mise en route
+
+1. Ouvrez `index.html` dans un navigateur (double-clic, ou un petit serveur
+   local type `npx serve .` si votre navigateur bloque les fichiers locaux).
+2. Deux façons de charger votre registre :
+   - **Automatique** : placez votre fichier dans `data/registre.xlsx`
+     (remplace le fichier vide fourni). Il sera chargé au démarrage.
+   - **Manuel** : glissez-déposez le fichier sur l'écran d'accueil, ou
+     utilisez le bouton "Importer un registre" / "Parcourir mon ordinateur".
+
+## Format du registre
+
+Le fichier doit contenir deux feuilles (la feuille `ACCUEIL` est ignorée) —
+voici la structure de **votre** registre réel, telle que détectée :
+
+### Feuille `VENTES` (87 objets)
+Colonnes reconnues par mot-clé (accents/casse ignorés), ordre indifférent :
+
+- **Objet** → nom de l'objet
+- **Prix de vente**
+- **Marge**, **% de marge** → conservées à titre de référence
+- **Materiel 1..6** / **Quantitée 1..6** → recette (jusqu'à 6 couples)
+- **Cout de création** → conservé à titre de référence
+- *(optionnel)* une colonne **Catégorie** — absente dans votre fichier, donc
+  la catégorie est déduite du nom (voir plus bas)
+
+⚠️ **Objets à recettes multiples** : "Bottes" (3 recettes) et
+"Sturdy Pouch (Left, Right)" (2 recettes) apparaissent plusieurs fois avec
+des coûts différents. L'application les affiche toutes, distinguées par
+`(recette 1/3)`, `(recette 2/3)`, etc. — aucune n'est écrasée par une autre.
+
+### Feuille `MATERIAUX` (13 matériaux renseignés sur 29 lignes)
+- **Objet** → nom du matériau
+- **Prix d'achat**
+- **Quantitée**
+- **Prix à l'unitée** *(optionnel, sinon déduit de achat / quantité)*
+
+### Catégorisation automatique (aucune colonne Catégorie dans votre fichier)
+
+Répartition obtenue sur vos 87 objets réels (vérifiée un par un) :
+
+| Catégorie   | Nombre |
+|-------------|-------:|
+| Accessoires | 27 |
+| Robes       | 21 |
+| Fine Clothes| 20 |
+| Capuches    | 7  |
+| Vêtements   | 6  |
+| Bottes      | 4  |
+| Chaussures  | 2  |
+
+Aucun objet n'est tombé dans la catégorie de repli "Autres" — la détection
+par mots-clés (`CATEGORY_KEYWORDS` dans `js/excel.js`) couvre bien
+l'ensemble de votre registre actuel. Si de nouveaux objets sont ajoutés
+plus tard avec un nom qui ne correspond à aucun mot-clé, ils tomberont
+dans "Autres" : il suffira alors d'ajouter le mot-clé manquant dans
+`js/excel.js`.
+
+> Le coût de fabrication affiché dans l'application est **toujours
+> recalculé en direct** à partir des prix de la feuille MATERIAUX (et de
+> toute modification faite dans l'onglet "Rachat des matériaux") — la
+> colonne "Coût" du registre n'est conservée qu'à titre de référence.
+
+## Images des objets
+
+### Deux emplacements par objet : porté homme / porté femme
+
+Chaque objet a maintenant deux visuels dans le panneau de détail, côte à
+côte : "Porté homme" et "Porté femme". Convention de nommage locale :
+
+- `images/<imageKey>-homme.png`
+- `images/<imageKey>-femme.png`
+
+Les deux sont indépendantes : si une seule existe, l'autre affiche
+simplement le dessin par défaut en attendant. La vignette de la liste
+(à gauche) essaie homme puis femme, pour afficher quelque chose même sans
+les deux versions.
+
+### Le fichier à remplir : `data/images_a_completer.xlsx`
+
+Un tableau Excel classique, pas lu par l'application — juste un
+aide-mémoire :
+
+- **Colonnes C et D** : les deux noms de fichiers exacts attendus pour
+  chaque objet (ex. `images/bottes-homme.png` / `images/bottes-femme.png`).
+- **Colonne E** : quand elle n'est pas vide, une URL vers une photo déjà
+  repérée sur le site des couturiers pour cet objet (54 objets sur 84) —
+  à vous de juger si elle convient pour la version homme, femme, ou les
+  deux (dans ce cas, enregistrez-la deux fois, sous les deux noms).
+- Le second onglet ("Mode d'emploi") reprend ces étapes en détail.
+
+Dès qu'un fichier `images/<imageKey>-homme.png` ou `-femme.png` existe,
+l'application l'affiche automatiquement au prochain chargement de la
+page — aucune autre manipulation, aucun code à toucher.
+
+### Variantes visuelles non présentes dans le registre (couleurs, styles...)
+
+Certains vêtements existent en plusieurs couleurs alors que le registre
+Excel n'a qu'une seule ligne pour eux (ex. une "Robe" en bleu, gris,
+marron...). Un menu déroulant apparaît alors dans le panneau de détail,
+affichant le nom de chaque variante, et change les images "Porté homme /
+Porté femme" en fonction du choix.
+
+Deux façons équivalentes de déclarer des variantes (la seconde est plus
+simple si vous ne savez pas coder) :
+
+- **`data/variants.json`** *(recommandé)* — un fichier JSON classique.
+  Remplacez son contenu d'exemple par vos objets, sur ce modèle :
+  ```json
+  {
+    "robe-bleu": [
+      { "label": "Bleu", "homme": "images/robe-bleu-homme.png", "femme": "images/robe-bleu-femme.png" },
+      { "label": "Grise", "homme": "images/robe-grise-homme.png", "femme": "images/robe-grise-femme.png" }
+    ]
+  }
+  ```
+- **`js/variants-map.js`** — pour la version zip/web uniquement (voir plus
+  bas), utile si vous ouvrez `index.html` directement sans serveur.
+
+Les objets sans entrée gardent leur fonctionnement simple habituel (pas de
+menu déroulant, juste `images/<imageKey>-homme.png` et `-femme.png`).
+
+### Version .exe : où modifier les images/variantes ?
+
+La version compilée en `.exe` crée, **à côté du fichier .exe**, un dossier
+nommé `AtelierDuCouturier-Donnees` au tout premier lancement (copie des
+données de départ). C'est CE dossier qu'il faut modifier — jamais le
+`.exe` lui-même :
+
+```
+Où que soit rangé le .exe/
+├── Atelier-du-Couturier.exe
+└── AtelierDuCouturier-Donnees/
+    ├── data/
+    │   ├── registre.xlsx
+    │   ├── images.json
+    │   ├── variants.json
+    │   └── images_a_completer.xlsx
+    └── images/
+        ├── placeholder.svg
+        └── (vos fichiers .png à ajouter ici)
+```
+
+Ajoutez vos images, modifiez `images.json`/`variants.json`/`registre.xlsx`
+dans ce dossier, puis relancez l'application (fermer/rouvrir le .exe) —
+vos modifications sont prises en compte automatiquement, sans jamais
+recompiler quoi que ce soit. Ce dossier survit aux mises à jour du .exe
+tant que vous ne le supprimez pas.
+
+### Version zip/web (sans .exe)
+
+Si vous distribuez plutôt le dossier zip (voir "Mise en route" plus haut)
+sans passer par un serveur local, `fetch()` sur `data/variants.json` peut
+échouer selon le navigateur (même limitation que celle déjà rencontrée
+pour `data/images.json`) : utilisez alors `js/variants-map.js` à la place,
+qui fonctionne dans tous les cas car embarqué directement dans le code.
+
+### Objets à plusieurs recettes
+
+Les objets comme "Bottes" (3 recettes) ou "Sturdy Pouch" (2 recettes)
+partagent les mêmes fichiers image (même `imageKey`), puisque c'est
+visuellement le même objet.
+
+
+
+## Architecture
+
+```
+Atelier-Couturier/
+├── index.html          Structure de la page (header, onglets, panneaux)
+├── css/style.css        Thème anthracite professionnel, un seul fichier
+├── js/
+│   ├── excel.js          Lecture pure du .xlsx -> données normalisées
+│   └── app.js            État, moteur de recalcul, rendu, événements
+├── lib/xlsx.full.min.js  SheetJS (lecture Excel), aucune dépendance réseau
+├── images/               Images des objets + placeholder.svg
+└── data/registre.xlsx    Registre Excel (chargement automatique)
+```
+
+`excel.js` ne connaît rien de l'affichage ; `app.js` ne lit jamais le
+fichier Excel directement. Cette séparation permet de remplacer la source
+de données (ex. import JSON, API future) sans toucher au rendu.
+
+## Évolutions prévues (architecture déjà prête pour)
+
+- **Gestion du stock** : le bouton "Fabriquer" est déjà en place dans le
+  panneau de détail ; il ne fait pour l'instant qu'afficher une notification.
+  Il suffira d'y brancher une déduction des matériaux en stock.
+- **Historique de fabrication** : `AppState` centralise déjà toutes les
+  données ; un tableau `historique` peut y être ajouté et persisté (ex.
+  `localStorage`, ou fichier).
+- **Import d'un nouveau registre** : déjà fonctionnel (bouton + glisser-déposer).
+- **Application Windows (Electron)** : le projet n'utilise aucune API
+  navigateur incompatible avec Electron ; `index.html` peut être chargé tel
+  quel dans une `BrowserWindow`.
+
+## Validation effectuée sur votre registre réel
+
+Le fichier `data/registre.xlsx` fourni a été testé intégralement :
+
+- 87 objets et 13 matériaux extraits correctement (les lignes
+  supplémentaires de VENTES et MATERIAUX sont des lignes vides/résiduelles,
+  ignorées comme attendu)
+- 0 matériau introuvable référencé dans une recette
+- Répartition par catégorie vérifiée ligne par ligne (voir tableau ci-dessus)
+- Recettes multiples ("Bottes", "Sturdy Pouch") correctement distinguées
+
+Reste à faire : les images (voir section dédiée ci-dessus).
