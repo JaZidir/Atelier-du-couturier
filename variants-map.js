@@ -1,121 +1,190 @@
-<!DOCTYPE html>
-<html lang="fr">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Atelier du Couturier</title>
-  <link rel="stylesheet" href="css/style.css">
-</head>
-<body>
+// Extrait généré par appliquer_etiquettes.py — à copier À L'INTÉRIEUR de
+// VARIANTS_MAP = { ... } dans js/variants-map.js (utile seulement si vous
+// ouvrez index.html directement, sans serveur local).
 
-  <div class="app">
-
-    <!-- ================= HEADER ================= -->
-    <header class="app-header">
-      <div class="brand">
-        <!-- Marque : aiguille et fil, signature discrète de l'atelier -->
-        <svg class="brand-mark" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
-          <path d="M9 23 C9 23 20 21 24 13 C25.5 10 24.5 7 22 6.5 C19.5 6 17.5 8 18 10.5"
-                stroke="currentColor" stroke-width="1.6" stroke-linecap="round" fill="none"/>
-          <circle cx="22.5" cy="8.5" r="2.6" stroke="currentColor" stroke-width="1.6" fill="none"/>
-          <path d="M6 26 C6.5 23.5 8 22 9 21.5" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/>
-        </svg>
-        <div class="brand-titles">
-          <span class="brand-title">Atelier du Couturier</span>
-          <span class="brand-subtitle">Registre de fabrication</span>
-        </div>
-      </div>
-
-      <nav class="tabs">
-        <button class="tab-button active" data-tab="catalogue">Catalogue</button>
-        <button class="tab-button" data-tab="rachat">Rachat des matériaux</button>
-      </nav>
-
-      <div class="header-spacer"></div>
-
-      <button class="btn-import">Importer un registre</button>
-    </header>
-
-    <!-- ================= ÉTAT VIDE (aucun registre chargé) ================= -->
-    <div id="empty-state">
-      <div class="dropzone" id="dropzone">
-        <svg class="dropzone-icon" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-          <path d="M12 4v11m0 0-4-4m4 4 4-4" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>
-          <path d="M4 16v2a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-2" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>
-        </svg>
-        <h2>Aucun registre chargé</h2>
-        <p>
-          Déposez ici votre fichier Excel (feuilles <strong>VENTES</strong> et <strong>MATERIAUX</strong>),
-          ou placez-le dans <code>data/registre.xlsx</code> pour un chargement automatique
-          au prochain démarrage.
-        </p>
-        <button class="btn-primary btn-import">Parcourir mon ordinateur</button>
-      </div>
-    </div>
-
-    <!-- Entrée fichier cachée, réutilisée par les deux boutons "Importer" -->
-    <input type="file" id="file-input" accept=".xlsx" class="hidden">
-
-    <!-- ================= CONTENU PRINCIPAL ================= -->
-    <main id="app-content" class="hidden">
-
-      <!-- ---- Onglet Catalogue ---- -->
-      <section id="panel-catalogue" class="tab-panel">
-        <div class="catalogue-layout">
-
-          <aside class="catalogue-sidebar">
-            <div class="sidebar-search">
-              <input type="text" id="search-input" class="search-input" placeholder="Rechercher un objet…">
-            </div>
-            <div id="category-list"></div>
-            <div id="item-list"></div>
-          </aside>
-
-          <div id="detail-panel"></div>
-
-        </div>
-      </section>
-
-      <!-- ---- Onglet Rachat des matériaux ---- -->
-      <section id="panel-rachat" class="tab-panel hidden">
-        <div class="rachat-layout">
-          <div class="rachat-header">
-            <h2>Rachat des matériaux</h2>
-            <p>
-              Modifiez le prix de rachat d'un matériau : le coût de fabrication, le bénéfice
-              et la rentabilité de tous les objets du catalogue qui l'utilisent sont
-              recalculés instantanément.
-            </p>
-          </div>
-          <div class="rachat-table-wrap">
-            <table class="rachat-table">
-              <thead>
-                <tr>
-                  <th>Matériau</th>
-                  <th>Prix de rachat</th>
-                  <th>Quantité</th>
-                  <th>Prix unitaire</th>
-                  <th></th>
-                </tr>
-              </thead>
-              <tbody id="rachat-tbody"></tbody>
-            </table>
-          </div>
-        </div>
-      </section>
-
-    </main>
-
-  </div>
-
-  <!-- Notification discrète -->
-  <div id="toast" class="toast"></div>
-
-  <!-- ================= SCRIPTS ================= -->
-  <script src="lib/xlsx.full.min.js"></script>
-  <script src="js/excel.js"></script>
-  <script src="js/images-map.js"></script>
-  <script src="js/variants-map.js"></script>
-  <script src="js/app.js"></script>
-</body>
-</html>
+  "cowl-noir-bleu-marron-vert-gris-monk-rouge-necromancer": [
+    { label: "Gris", homme: "None", femme: "images/cowl-noir-bleu-marron-vert-gris-monk-rouge-necromancer-gris-femme.png" },
+    { label: "Monk", homme: "None", femme: "images/cowl-noir-bleu-marron-vert-gris-monk-rouge-necromancer-monk-femme.png" },
+    { label: "Bleu", homme: "None", femme: "images/cowl-noir-bleu-marron-vert-gris-monk-rouge-necromancer-bleu-femme.png" },
+    { label: "Vert", homme: "None", femme: "images/cowl-noir-bleu-marron-vert-gris-monk-rouge-necromancer-vert-femme.png" },
+    { label: "Noir", homme: "None", femme: "images/cowl-noir-bleu-marron-vert-gris-monk-rouge-necromancer-noir-femme.png" },
+    { label: "Rouge", homme: "None", femme: "images/cowl-noir-bleu-marron-vert-gris-monk-rouge-necromancer-rouge-femme.png" },
+    { label: "Marron", homme: "images/cowl-noir-bleu-marron-vert-gris-monk-rouge-necromancer-marron-homme.png", femme: "None" },
+  ],
+  "exquisite-cloak-vert-blanc": [
+    { label: "Vert", homme: "images/exquisite-cloak-vert-blanc-vert-homme.png", femme: "None" },
+    { label: "Blanc", homme: "images/exquisite-cloak-vert-blanc-blanc-homme.png", femme: "None" },
+  ],
+  "rugged-cape": [
+    { label: "Blanc", homme: "images/rugged-cape-blanc-homme.png", femme: "None" },
+    { label: "Bleu", homme: "images/rugged-cape-bleu-homme.png", femme: "None" },
+    { label: "Noir", homme: "images/rugged-cape-noir-homme.png", femme: "None" },
+    { label: "Marron", homme: "images/rugged-cape-marron-homme.png", femme: "None" },
+  ],
+  "exquisite-cloak-rouge-noir": [
+    { label: "Rouge", homme: "None", femme: "images/exquisite-cloak-rouge-noir-rouge-femme.png" },
+    { label: "Noir", homme: "None", femme: "images/exquisite-cloak-rouge-noir-noir-femme.png" },
+  ],
+  "short-cloth-cape": [
+    { label: "Blanc", homme: "images/short-cloth-cape-blanc-homme.png", femme: "None" },
+    { label: "Bleu", homme: "images/short-cloth-cape-bleu-homme.png", femme: "None" },
+    { label: "Marron", homme: "images/short-cloth-cape-marron-homme.png", femme: "None" },
+    { label: "Rouge", homme: "images/short-cloth-cape-rouge-homme.png", femme: "None" },
+  ],
+  "capuche": [
+    { label: "01", homme: "images/capuche-01-homme.png", femme: "None" },
+  ],
+  "chapeau": [
+    { label: "01", homme: "images/chapeau-01-homme.png", femme: "None" },
+    { label: "03", homme: "images/chapeau-03-homme.png", femme: "None" },
+    { label: "02", homme: "images/chapeau-02-homme.png", femme: "None" },
+  ],
+  "loose-neck-gaiter-blanc-et-gris": [
+    { label: "Gris", homme: "images/loose-neck-gaiter-blanc-et-gris-gris-homme.png", femme: "None" },
+    { label: "Blanc", homme: "images/loose-neck-gaiter-blanc-et-gris-blanc-homme.png", femme: "None" },
+  ],
+  "rugged-mask": [
+    { label: "Bleu", homme: "images/rugged-mask-bleu-homme.png", femme: "None" },
+    { label: "Blanc", homme: "images/rugged-mask-blanc-homme.png", femme: "None" },
+    { label: "Noir", homme: "images/rugged-mask-noir-homme.png", femme: "None" },
+    { label: "Rouge", homme: "images/rugged-mask-rouge-homme.png", femme: "None" },
+    { label: "Marron", homme: "images/rugged-mask-marron-homme.png", femme: "None" },
+  ],
+  "common-robes": [
+    { label: "03", homme: "images/common-robes-03-homme.png", femme: "images/common-robes-03-femme.png" },
+    { label: "05", homme: "images/common-robes-05-homme.png", femme: "images/common-robes-05-femme.png" },
+    { label: "06", homme: "images/common-robes-06-homme.png", femme: "images/common-robes-06-femme.png" },
+    { label: "07", homme: "images/common-robes-07-homme.png", femme: "images/common-robes-07-femme.png" },
+    { label: "08", homme: "images/common-robes-08-homme.png", femme: "images/common-robes-08-femme.png" },
+    { label: "12", homme: "images/common-robes-12-homme.png", femme: "images/common-robes-12-femme.png" },
+    { label: "09", homme: "None", femme: "images/common-robes-09-femme.png" },
+    { label: "14", homme: "images/common-robes-14-homme.png", femme: "images/common-robes-14-femme.png" },
+    { label: "16", homme: "images/common-robes-16-homme.png", femme: "images/common-robes-16-femme.png" },
+    { label: "15", homme: "None", femme: "images/common-robes-15-femme.png" },
+    { label: "17", homme: "images/common-robes-17-homme.png", femme: "images/common-robes-17-femme.png" },
+    { label: "20", homme: "images/common-robes-20-homme.png", femme: "images/common-robes-20-femme.png" },
+    { label: "21", homme: "images/common-robes-21-homme.png", femme: "images/common-robes-21-femme.png" },
+    { label: "Hooded 04", homme: "images/common-robes-hooded-04-homme.png", femme: "images/common-robes-hooded-04-femme.png" },
+    { label: "22", homme: "images/common-robes-22-homme.png", femme: "images/common-robes-22-femme.png" },
+    { label: "Hooded 10", homme: "images/common-robes-hooded-10-homme.png", femme: "images/common-robes-hooded-10-femme.png" },
+    { label: "Hooded 11", homme: "images/common-robes-hooded-11-homme.png", femme: "images/common-robes-hooded-11-femme.png" },
+    { label: "Hooded 13", homme: "images/common-robes-hooded-13-homme.png", femme: "None" },
+    { label: "Hooded 18", homme: "images/common-robes-hooded-18-homme.png", femme: "images/common-robes-hooded-18-femme.png" },
+    { label: "13", homme: "None", femme: "images/common-robes-13-femme.png" },
+    { label: "Gris", homme: "images/common-robes-gris-homme.png", femme: "None" },
+  ],
+  "vetements": [
+    { label: "01", homme: "images/vetements-01-homme.png", femme: "images/vetements-01-femme.png" },
+    { label: "02", homme: "images/vetements-02-homme.png", femme: "images/vetements-02-femme.png" },
+    { label: "03", homme: "images/vetements-03-homme.png", femme: "images/vetements-03-femme.png" },
+    { label: "04", homme: "images/vetements-04-homme.png", femme: "images/vetements-04-femme.png" },
+    { label: "05", homme: "images/vetements-05-homme.png", femme: "images/vetements-05-femme.png" },
+    { label: "06", homme: "images/vetements-06-homme.png", femme: "images/vetements-06-femme.png" },
+    { label: "07", homme: "images/vetements-07-homme.png", femme: "images/vetements-07-femme.png" },
+    { label: "08", homme: "images/vetements-08-homme.png", femme: "images/vetements-08-femme.png" },
+    { label: "09", homme: "images/vetements-09-homme.png", femme: "images/vetements-09-femme.png" },
+    { label: "10", homme: "images/vetements-10-homme.png", femme: "images/vetements-10-femme.png" },
+    { label: "11", homme: "images/vetements-11-homme.png", femme: "images/vetements-11-femme.png" },
+    { label: "Deuil", homme: "None", femme: "images/vetements-deuil-femme.png" },
+  ],
+  "tablier-de-forgeron": [
+    { label: "Rouge", homme: "images/tablier-de-forgeron-rouge-homme.png", femme: "images/tablier-de-forgeron-rouge-femme.png" },
+    { label: "Blanc", homme: "images/tablier-de-forgeron-blanc-homme.png", femme: "images/tablier-de-forgeron-blanc-femme.png" },
+  ],
+  "bottes": [
+    { label: "01", homme: "images/bottes-01-homme.png", femme: "images/bottes-01-femme.png" },
+    { label: "02", homme: "images/bottes-02-homme.png", femme: "images/bottes-02-femme.png" },
+    { label: "03", homme: "images/bottes-03-homme.png", femme: "images/bottes-03-femme.png" },
+    { label: "04", homme: "images/bottes-04-homme.png", femme: "images/bottes-04-femme.png" },
+    { label: "05", homme: "images/bottes-05-homme.png", femme: "images/bottes-05-femme.png" },
+    { label: "06", homme: "images/bottes-06-homme.png", femme: "images/bottes-06-femme.png" },
+    { label: "07", homme: "images/bottes-07-homme.png", femme: "images/bottes-07-femme.png" },
+    { label: "08", homme: "images/bottes-08-homme.png", femme: "images/bottes-08-femme.png" },
+  ],
+  "bottes-raffinees": [
+    { label: "01", homme: "images/bottes-raffinees-01-homme.png", femme: "images/bottes-raffinees-01-femme.png" },
+    { label: "02", homme: "images/bottes-raffinees-02-homme.png", femme: "images/bottes-raffinees-02-femme.png" },
+  ],
+  "chaussures": [
+    { label: "01", homme: "images/chaussures-01-homme.png", femme: "images/chaussures-01-femme.png" },
+    { label: "02", homme: "images/chaussures-02-homme.png", femme: "images/chaussures-02-femme.png" },
+    { label: "03", homme: "images/chaussures-03-homme.png", femme: "images/chaussures-03-femme.png" },
+  ],
+  "monk-tunic": [
+    { label: "Orange", homme: "images/monk-tunic-orange-homme.png", femme: "images/monk-tunic-orange-femme.png" },
+    { label: "Vert", homme: "images/monk-tunic-vert-homme.png", femme: "None" },
+  ],
+  "robe-bleu-moine-grise-marron-noire-rouge-verte-usee": [
+    { label: "Gris", homme: "None", femme: "images/robe-bleu-moine-grise-marron-noire-rouge-verte-usee-gris-femme.png" },
+    { label: "Marron", homme: "images/robe-bleu-moine-grise-marron-noire-rouge-verte-usee-marron-homme.png", femme: "images/robe-bleu-moine-grise-marron-noire-rouge-verte-usee-marron-femme.png" },
+    { label: "Noir", homme: "images/robe-bleu-moine-grise-marron-noire-rouge-verte-usee-noir-homme.png", femme: "images/robe-bleu-moine-grise-marron-noire-rouge-verte-usee-noir-femme.png" },
+    { label: "Vert", homme: "images/robe-bleu-moine-grise-marron-noire-rouge-verte-usee-vert-homme.png", femme: "images/robe-bleu-moine-grise-marron-noire-rouge-verte-usee-vert-femme.png" },
+    { label: "Rouge", homme: "images/robe-bleu-moine-grise-marron-noire-rouge-verte-usee-rouge-homme.png", femme: "None" },
+    { label: "Bleu", homme: "images/robe-bleu-moine-grise-marron-noire-rouge-verte-usee-bleu-homme.png", femme: "None" },
+    { label: "Usée", homme: "images/robe-bleu-moine-grise-marron-noire-rouge-verte-usee-usee-homme.png", femme: "images/robe-bleu-moine-grise-marron-noire-rouge-verte-usee-usee-femme.png" },
+  ],
+  "robe-a-capuchon-bleu-moine-grise-marron-noire-rouge-verte-usee": [
+    { label: "Gris", homme: "images/robe-a-capuchon-bleu-moine-grise-marron-noire-rouge-verte-usee-gris-homme.png", femme: "None" },
+    { label: "Marron", homme: "images/robe-a-capuchon-bleu-moine-grise-marron-noire-rouge-verte-usee-marron-homme.png", femme: "None" },
+    { label: "Noir", homme: "images/robe-a-capuchon-bleu-moine-grise-marron-noire-rouge-verte-usee-noir-homme.png", femme: "None" },
+    { label: "Vert", homme: "images/robe-a-capuchon-bleu-moine-grise-marron-noire-rouge-verte-usee-vert-homme.png", femme: "images/robe-a-capuchon-bleu-moine-grise-marron-noire-rouge-verte-usee-vert-femme.png" },
+    { label: "Moine", homme: "images/robe-a-capuchon-bleu-moine-grise-marron-noire-rouge-verte-usee-moine-homme.png", femme: "None" },
+    { label: "Rouge", homme: "images/robe-a-capuchon-bleu-moine-grise-marron-noire-rouge-verte-usee-rouge-homme.png", femme: "None" },
+  ],
+  "traveller-robes-noir-marron-gris-rouge-tan": [
+    { label: "Noir", homme: "images/traveller-robes-noir-marron-gris-rouge-tan-noir-homme.png", femme: "images/traveller-robes-noir-marron-gris-rouge-tan-noir-femme.png" },
+    { label: "Tan", homme: "images/traveller-robes-noir-marron-gris-rouge-tan-tan-homme.png", femme: "images/traveller-robes-noir-marron-gris-rouge-tan-tan-femme.png" },
+    { label: "Marron", homme: "images/traveller-robes-noir-marron-gris-rouge-tan-marron-homme.png", femme: "images/traveller-robes-noir-marron-gris-rouge-tan-marron-femme.png" },
+    { label: "Gris", homme: "images/traveller-robes-noir-marron-gris-rouge-tan-gris-homme.png", femme: "images/traveller-robes-noir-marron-gris-rouge-tan-gris-femme.png" },
+  ],
+  "traveller-robes-hooded-noir-marron-gris-rouge-tan": [
+    { label: "Noir", homme: "images/traveller-robes-hooded-noir-marron-gris-rouge-tan-noir-homme.png", femme: "images/traveller-robes-hooded-noir-marron-gris-rouge-tan-noir-femme.png" },
+    { label: "Tan", homme: "images/traveller-robes-hooded-noir-marron-gris-rouge-tan-tan-homme.png", femme: "images/traveller-robes-hooded-noir-marron-gris-rouge-tan-tan-femme.png" },
+    { label: "Rouge", homme: "images/traveller-robes-hooded-noir-marron-gris-rouge-tan-rouge-homme.png", femme: "images/traveller-robes-hooded-noir-marron-gris-rouge-tan-rouge-femme.png" },
+    { label: "Gris", homme: "images/traveller-robes-hooded-noir-marron-gris-rouge-tan-gris-homme.png", femme: "images/traveller-robes-hooded-noir-marron-gris-rouge-tan-gris-femme.png" },
+    { label: "Marron", homme: "images/traveller-robes-hooded-noir-marron-gris-rouge-tan-marron-homme.png", femme: "images/traveller-robes-hooded-noir-marron-gris-rouge-tan-marron-femme.png" },
+  ],
+  "common-clothes": [
+    { label: "01", homme: "images/common-clothes-01-homme.png", femme: "images/common-clothes-01-femme.png" },
+    { label: "02", homme: "images/common-clothes-02-homme.png", femme: "images/common-clothes-02-femme.png" },
+    { label: "03", homme: "images/common-clothes-03-homme.png", femme: "images/common-clothes-03-femme.png" },
+    { label: "05", homme: "images/common-clothes-05-homme.png", femme: "images/common-clothes-05-femme.png" },
+    { label: "04", homme: "images/common-clothes-04-homme.png", femme: "images/common-clothes-04-femme.png" },
+    { label: "06", homme: "images/common-clothes-06-homme.png", femme: "images/common-clothes-06-femme.png" },
+    { label: "07", homme: "images/common-clothes-07-homme.png", femme: "images/common-clothes-07-femme.png" },
+    { label: "08", homme: "images/common-clothes-08-homme.png", femme: "images/common-clothes-08-femme.png" },
+    { label: "09", homme: "images/common-clothes-09-homme.png", femme: "images/common-clothes-09-femme.png" },
+    { label: "10", homme: "images/common-clothes-10-homme.png", femme: "images/common-clothes-10-femme.png" },
+    { label: "11", homme: "images/common-clothes-11-homme.png", femme: "images/common-clothes-11-femme.png" },
+    { label: "12", homme: "images/common-clothes-12-homme.png", femme: "images/common-clothes-12-femme.png" },
+    { label: "13", homme: "images/common-clothes-13-homme.png", femme: "images/common-clothes-13-femme.png" },
+    { label: "14", homme: "images/common-clothes-14-homme.png", femme: "images/common-clothes-14-femme.png" },
+    { label: "15", homme: "images/common-clothes-15-homme.png", femme: "images/common-clothes-15-femme.png" },
+    { label: "16", homme: "images/common-clothes-16-homme.png", femme: "images/common-clothes-16-femme.png" },
+    { label: "17", homme: "images/common-clothes-17-homme.png", femme: "images/common-clothes-17-femme.png" },
+    { label: "18", homme: "images/common-clothes-18-homme.png", femme: "images/common-clothes-18-femme.png" },
+    { label: "19", homme: "images/common-clothes-19-homme.png", femme: "images/common-clothes-19-femme.png" },
+    { label: "20", homme: "images/common-clothes-20-homme.png", femme: "images/common-clothes-20-femme.png" },
+    { label: "21", homme: "images/common-clothes-21-homme.png", femme: "images/common-clothes-21-femme.png" },
+    { label: "22", homme: "images/common-clothes-22-homme.png", femme: "images/common-clothes-22-femme.png" },
+    { label: "23", homme: "images/common-clothes-23-homme.png", femme: "images/common-clothes-23-femme.png" },
+    { label: "24", homme: "images/common-clothes-24-homme.png", femme: "images/common-clothes-24-femme.png" },
+    { label: "25", homme: "images/common-clothes-25-homme.png", femme: "images/common-clothes-25-femme.png" },
+    { label: "26", homme: "images/common-clothes-26-homme.png", femme: "images/common-clothes-26-femme.png" },
+    { label: "28", homme: "images/common-clothes-28-homme.png", femme: "images/common-clothes-28-femme.png" },
+    { label: "27", homme: "images/common-clothes-27-homme.png", femme: "images/common-clothes-27-femme.png" },
+    { label: "29", homme: "images/common-clothes-29-homme.png", femme: "images/common-clothes-29-femme.png" },
+    { label: "30", homme: "images/common-clothes-30-homme.png", femme: "images/common-clothes-30-femme.png" },
+    { label: "31", homme: "images/common-clothes-31-homme.png", femme: "images/common-clothes-31-femme.png" },
+    { label: "32", homme: "images/common-clothes-32-homme.png", femme: "images/common-clothes-32-femme.png" },
+    { label: "33", homme: "images/common-clothes-33-homme.png", femme: "images/common-clothes-33-femme.png" },
+    { label: "34", homme: "images/common-clothes-34-homme.png", femme: "images/common-clothes-34-femme.png" },
+    { label: "35", homme: "images/common-clothes-35-homme.png", femme: "images/common-clothes-35-femme.png" },
+    { label: "36", homme: "images/common-clothes-36-homme.png", femme: "images/common-clothes-36-femme.png" },
+    { label: "37", homme: "images/common-clothes-37-homme.png", femme: "images/common-clothes-37-femme.png" },
+    { label: "38", homme: "images/common-clothes-38-homme.png", femme: "images/common-clothes-38-femme.png" },
+    { label: "39", homme: "images/common-clothes-39-homme.png", femme: "images/common-clothes-39-femme.png" },
+    { label: "40", homme: "images/common-clothes-40-homme.png", femme: "images/common-clothes-40-femme.png" },
+    { label: "41", homme: "images/common-clothes-41-homme.png", femme: "images/common-clothes-41-femme.png" },
+    { label: "42", homme: "images/common-clothes-42-homme.png", femme: "images/common-clothes-42-femme.png" },
+  ],
