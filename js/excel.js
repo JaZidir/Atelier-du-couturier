@@ -229,11 +229,26 @@ const ExcelReader = (() => {
         if (!name) return null;
 
         const recipe = [];
-        for (let i = 0; i < materialKeys.length; i++) {
-          const materialName = row[materialKeys[i]] ? row[materialKeys[i]].toString().trim() : '';
+        for (const materialKey of materialKeys) {
+          const materialName = row[materialKey] ? row[materialKey].toString().trim() : '';
           if (!materialName) continue;
-          const qty = quantityKeys[i] ? toNumber(row[quantityKeys[i]]) : 0;
-          if (qty <= 0) continue; // ex: entrée résiduelle sans quantité valide
+
+          // trouver l'index de la colonne matériau dans l'ordre des clés
+          const materialIdx = keys.indexOf(materialKey);
+          let qty = 0;
+
+          // chercher la colonne quantité la plus proche à droite
+          for (let j = materialIdx + 1; j < keys.length; j++) {
+            const candidate = keys[j];
+            if (quantityKeys.includes(candidate)) {
+              qty = toNumber(row[candidate]);
+              break;
+            }
+            // si on rencontre un autre "matériau" avant une quantité, on arrête
+            if (materialKeys.includes(candidate)) break;
+          }
+
+          if (qty <= 0) continue; // ignore quantités invalides
           recipe.push({ materialId: slugify(materialName), materialName, quantity: qty });
         }
 
